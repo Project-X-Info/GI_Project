@@ -27,6 +27,7 @@ public class Main {
 		Graph_AdjList graph = new Graph_AdjList();
 		graph.setNodeArray_id(nodeList);
 		graph.initAdjacencyList();
+		// Kanten werden in der Adjazenzliste gesetzt und diese befüllt
 		graph.setLines(lineList);
 		
 		

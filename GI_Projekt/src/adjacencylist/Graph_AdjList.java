@@ -5,21 +5,36 @@ import graph.*;
 
 public class Graph_AdjList {
 
+	// Array aller Punkte
 	public Node[] nodeArray;
+	// Array aller Punkte, Index entspricht der nodeId (Zwischenräume null)
 	public Node[] nodeArray_id;
+	// Adjazenzliste als Array von Listen
 	private NodeList[] adjacencyList;
 
+	/*
+	 * Für ihre anschließende Befüllung wird das Grundgerüst der Adjazenzliste
+	 * errichtet. D. h. für jeden Knoten wird eine Liste für dessen Nachbarn
+	 * bereitgestellt.
+	 */
 	public void initAdjacencyList() {
 		int nodeNumber = nodeArray_id.length;
-		adjacencyList = new NodeList[nodeNumber];
+		adjacencyList = new NodeList[nodeNumber]; // Array aus Listen
 		for (int i = 0; i < nodeNumber; i++) {
 			if (nodeArray_id[i] != null) {
-				adjacencyList[i] = new NodeList();
+				adjacencyList[i] = new NodeList();// Liste für Nachbarn von
+													// Knoten i
 			}
 		}
 		System.out.println("Adajzenzliste wurde initialisiert!");
 	}
 
+	/*
+	 * Mit setLines() werden in der Adjazenzliste die Listen der Nachbarn
+	 * gefüllt. Jede Kante mit 'node1' und 'node2' enthält die IDs der Knoten,
+	 * welche miteinander verbunden sind. Damit können diese Nachbarn aus dem
+	 * nodeArray_id entnommen werden (Id und Index stimmen hier überein).
+	 */
 	public void setLines(List<Line> lines) {
 		long start = new Date().getTime();
 
@@ -29,9 +44,14 @@ public class Graph_AdjList {
 			int to = Line.getNodeId2() - 1;
 			NodeList fromList = adjacencyList[from];
 			fromList.add(nodeArray_id[to]);
+			// Graph nicht gerichtet --> auch umgekehrt anfügen
 			NodeList toList = adjacencyList[to];
 			toList.add(nodeArray_id[from]);
 		}
+
+		// Die Löcher (=null) in der Adjazenzliste werden nun gelöscht:
+		// Alle Elemente werden in eine ArrayList überführt und später wieder in
+		// ein Array rückgewandelt.
 		ArrayList<NodeList> tmp_adj = new ArrayList<NodeList>();
 		ArrayList<Node> tmp_nodes = new ArrayList<Node>();
 		for (int i = 0; i < adjacencyList.length; i++) {
@@ -48,6 +68,11 @@ public class Graph_AdjList {
 		System.out.println("Kanten sind gesetzt!");
 	}
 
+	/*
+	 * Durch die Verwendung des nodeArray_id kann auf folgende Methoden
+	 * verzichtet werden. Über das Array darauf zuzugreifen, ist viel
+	 * effizienter.
+	 */
 	public Node getNodefromID(int nodeID) {
 		Node k = null;
 		for (int i = 0; i < nodeArray.length; i++) {
@@ -86,10 +111,12 @@ public class Graph_AdjList {
 		return allVisited;
 	}
 	
+	// Getter und Setter
+
 	public void setNodeArray_id(List<Node> nodeList) {
 		nodeArray_id = new Node[Node.getMaxId()];
 		for (Node node : nodeList) {
-			nodeArray_id[node.getNodeId()-1] = node;
+			nodeArray_id[node.getNodeId() - 1] = node;
 		}
 	}
 
@@ -112,6 +139,8 @@ public class Graph_AdjList {
 	public NodeList[] getAdjacencyList() {
 		return adjacencyList;
 	}
+	
+	// Print-Methoden für die Konsole
 
 	public void printNodeArray() {
 		System.out.println("----------------------------------------");
