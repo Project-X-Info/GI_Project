@@ -8,14 +8,16 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import datamanagement.CoordTraf;
 import datamanagement.Read;
+import datamanagement.Write;
 import graph.Line;
 import graph.Node;
 import graph.POI;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		ArrayList<Node> nodeList = new ArrayList<Node>();
 		ArrayList<Line> lineList = new ArrayList<Line>();
 		ArrayList<POI> POIList = new ArrayList<POI>();
@@ -31,7 +33,13 @@ public class Main {
 		graph.setLines(lineList);
 		
 		
-		graph.printAdjacencylist();
+//		graph.printAdjacencylist();
+		
+		CoordTraf.setLonLat(nodeList);
+		
+		CoordTraf.printCoord(nodeList);
+		
+//		Write.kmlWriter(graph, lineList, "kmlTest.kml", "blue");
 		
 		//System.out.println("Test");
 		

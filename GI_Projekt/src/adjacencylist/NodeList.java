@@ -68,8 +68,6 @@ public class NodeList {
 
 	public void printElements() {
 		NodeElem k = head;
-		System.out.print(k.getValue().getNodeId());
-		k = k.getNext();
 		while (k != null) {
 			System.out.print("\t-->\t" + k.getValue().getNodeId());
 			k = k.getNext();

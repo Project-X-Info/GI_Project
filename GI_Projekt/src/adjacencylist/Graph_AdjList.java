@@ -40,8 +40,8 @@ public class Graph_AdjList {
 
 		System.out.println("Kanten werden gesetzt...");
 		for (Line Line : lines) {
-			int from = Line.getNodeId1() - 1;
-			int to = Line.getNodeId2() - 1;
+			int from = Line.getNodeId1();
+			int to = Line.getNodeId2();
 			NodeList fromList = adjacencyList[from];
 			fromList.add(nodeArray_id[to]);
 			// Graph nicht gerichtet --> auch umgekehrt anfügen
@@ -114,9 +114,9 @@ public class Graph_AdjList {
 	// Getter und Setter
 
 	public void setNodeArray_id(List<Node> nodeList) {
-		nodeArray_id = new Node[Node.getMaxId()];
+		nodeArray_id = new Node[Node.getMaxId() + 1];
 		for (Node node : nodeList) {
-			nodeArray_id[node.getNodeId() - 1] = node;
+			nodeArray_id[node.getNodeId()] = node;
 		}
 	}
 
@@ -154,7 +154,7 @@ public class Graph_AdjList {
 		System.out.println("Index\tHead\t\tNeighbours...");
 		System.out.println("----------------------------------------");
 		for (int i = 0; i < adjacencyList.length; i++) {
-			System.out.print((i + 1) + ":\t" + nodeArray[i].getNodeId());
+			System.out.print(i + ":\t" + nodeArray[i].getNodeId());
 			adjacencyList[i].printElements();
 			System.out.println();
 		}
