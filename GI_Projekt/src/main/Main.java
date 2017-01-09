@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
+import GUI.GUI;
 import adjacencylist.*;
 
 import java.io.BufferedWriter;
@@ -29,15 +30,17 @@ public class Main {
 		Graph_AdjList graph = new Graph_AdjList();
 		graph.setNodeArray_id(nodeList);
 		graph.initAdjacencyList();
-		// Kanten werden in der Adjazenzliste gesetzt und diese befüllt
+		// Kanten werden in der Adjazenzliste gesetzt und diese befï¿½llt
 		graph.setLines(lineList);
 		
 		
 //		graph.printAdjacencylist();
 		
 		CoordTraf.setLonLat(nodeList);
+		CoordTraf.setLonLat2(POIList);
 		
-		CoordTraf.printCoord(nodeList);
+		
+		//CoordTraf.printCoord(nodeList);
 		
 //		Write.kmlWriter(graph, lineList, "kmlTest.kml", "blue");
 		
@@ -63,6 +66,9 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}*/
+		
+		new GUI(POIList);
+		
 		
 	}
 

@@ -6,6 +6,8 @@ public class POI {
 	private String type;
 	private double y;
 	private double x;
+	private double lon;
+	private double lat;
 
 	public POI(int pointId, String name, String type, double y, double x) {
 		this.pointId = pointId;
@@ -23,6 +25,10 @@ public class POI {
 		return name;
 	}
 	
+	public void setName(String name) {
+	this.name = name;
+	}
+	
 	public String getType() {
 		return type;
 	}
@@ -35,4 +41,23 @@ public class POI {
 		return x;
 	}
 	
+	public String toString() {
+		return this.name;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
 }
