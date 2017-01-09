@@ -73,7 +73,7 @@ public class SelectorPanel extends JPanel {
 
 		for (int index : selectedIndices) {
 			POI selected = GUI.POIListe[index];
-			url = url + "&markers=color:blue%7Clabel:S%7C" + selected.getLat() + "," + selected.getLon();
+			url = url + "&markers=color:red%7Clabel:%7C" + selected.getLat() + "," + selected.getLon();
 		}
 		return url;
 	}
