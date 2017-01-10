@@ -5,18 +5,34 @@ import java.util.*;
 import graph.*;
 
 public class CoordTraf {
+	
+	// Parameter: Bessel 1841
+	static private double a = 6377397.155;
+	static private double b = 6356078.965;
+	static private double e = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(a, 2));
+	static private double r = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(b, 2));
+	static private double n = (a - b) / (a + b);
+	
+	// Parameter: WGS84
+	static private double aw = 6378137.000;
+	static private double bw = 6356752.314;
+	static private double ew = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(aw, 2));
+	static private double rwgs = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(bw, 2));
+	
+	static private double rx = 1.04 * (Math.PI / 648000);
+	static private double ry = 0.35 * (Math.PI / 648000);
+	static private double rz = -3.08 * (Math.PI / 648000);
+	static private double s = 8.3 * Math.pow(10, -6);
+	static private double cx = 582;
+	static private double cy = 105;
+	static private double cz = 414;
 
-	public static void setLonLat(List<Node> nodeList) {
+	public static void setLonLat_Nodes(List<Node> nodeList) {
 
 		System.out.println("Koordinaten (POIs) werden transformiert...");
 		long start = new Date().getTime();
 		// Koordinatentransformation
 		// Transformation nach Bessel 1841
-		double a = 6377397.155;
-		double b = 6356078.965;
-		double e = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(a, 2));
-		double r = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(b, 2));
-		double n = (a - b) / (a + b);
 
 		ArrayList<Double> rw = new ArrayList<Double>();
 		ArrayList<Double> hw = new ArrayList<Double>();
@@ -107,21 +123,7 @@ public class CoordTraf {
 			Z.add(Zt);
 		}
 
-		///////////////////////////////////////////////////////////////////
-		/// WGS84
-		double aw = 6378137.000;
-		double bw = 6356752.314;
-		double ew = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(aw, 2));
-		double rwgs = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(bw, 2));
-
-		///////////////////////////////////////////////////
-		double rx = 1.04 * (Math.PI / 648000);
-		double ry = 0.35 * (Math.PI / 648000);
-		double rz = -3.08 * (Math.PI / 648000);
-		double s = 8.3 * Math.pow(10, -6);
-		double cx = 582;
-		double cy = 105;
-		double cz = 414;
+		// WGS84
 
 		ArrayList<Double> Xb = new ArrayList<Double>();
 		ArrayList<Double> Yb = new ArrayList<Double>();
@@ -135,7 +137,7 @@ public class CoordTraf {
 			Zb.add(ZB);
 		}
 
-		/// Schritt 4 WGS 84 -> La,Lo,H (WGS 84)
+		// Schritt 4 WGS 84 -> La,Lo,H (WGS 84)
 		ArrayList<Double> Lo = new ArrayList<Double>();
 		for (int i = 0; i < X.size(); i++) {
 			double lo0 = Math.atan(Yb.get(i) / Xb.get(i));
@@ -173,17 +175,12 @@ public class CoordTraf {
 		System.out.println("Koordinaten wurden transformiert!");
 	}
 	
-	public static void setLonLat2(List<POI> POIList) {
+	public static void setLonLat_POI(List<POI> POIList) {
 
-		System.out.println("Koordinaten werden transformiert...");
+		System.out.println("Koordinaten (POIs) werden transformiert...");
 		long start = new Date().getTime();
 		// Koordinatentransformation
 		// Transformation nach Bessel 1841
-		double a = 6377397.155;
-		double b = 6356078.965;
-		double e = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(a, 2));
-		double r = (Math.pow(a, 2) - Math.pow(b, 2)) / (Math.pow(b, 2));
-		double n = (a - b) / (a + b);
 
 		ArrayList<Double> rw = new ArrayList<Double>();
 		ArrayList<Double> hw = new ArrayList<Double>();
@@ -253,7 +250,7 @@ public class CoordTraf {
 			la.add(La);
 
 		}
-		//// Übergang ins kartesisch geozentrische Koordinatensystem
+		// Übergang ins kartesisch geozentrische Koordinatensystem
 		ArrayList<Double> N = new ArrayList<Double>();
 		double H = 0;
 		for (int i = 0; i < la.size(); i++) {
@@ -274,21 +271,7 @@ public class CoordTraf {
 			Z.add(Zt);
 		}
 
-		///////////////////////////////////////////////////////////////////
-		/// WGS84
-		double aw = 6378137.000;
-		double bw = 6356752.314;
-		double ew = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(aw, 2));
-		double rwgs = (Math.pow(aw, 2) - Math.pow(bw, 2)) / (Math.pow(bw, 2));
-
-		///////////////////////////////////////////////////
-		double rx = 1.04 * (Math.PI / 648000);
-		double ry = 0.35 * (Math.PI / 648000);
-		double rz = -3.08 * (Math.PI / 648000);
-		double s = 8.3 * Math.pow(10, -6);
-		double cx = 582;
-		double cy = 105;
-		double cz = 414;
+		// WGS84
 
 		ArrayList<Double> Xb = new ArrayList<Double>();
 		ArrayList<Double> Yb = new ArrayList<Double>();
@@ -302,7 +285,7 @@ public class CoordTraf {
 			Zb.add(ZB);
 		}
 
-		/// Schritt 4 WGS 84 -> La,Lo,H (WGS 84)
+		// Schritt 4 WGS 84 -> La,Lo,H (WGS 84)
 		ArrayList<Double> Lo = new ArrayList<Double>();
 		for (int i = 0; i < X.size(); i++) {
 			double lo0 = Math.atan(Yb.get(i) / Xb.get(i));
