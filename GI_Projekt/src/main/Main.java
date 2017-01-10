@@ -36,6 +36,7 @@ public class Main {
 		
 //		graph.printAdjacencylist();
 		
+		// Koordinatentransformation der Punkte
 		CoordTraf.setLonLat_Nodes(nodeList);
 		CoordTraf.setLonLat_POI(POIList);
 		
