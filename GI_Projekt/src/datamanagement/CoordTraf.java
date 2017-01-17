@@ -29,7 +29,7 @@ public class CoordTraf {
 
 	public static void setLonLat_Nodes(List<Node> nodeList) {
 
-		System.out.println("Koordinaten (POIs) werden transformiert...");
+		System.out.println("Koordinaten (Nodes) werden transformiert...");
 		long start = new Date().getTime();
 		// Koordinatentransformation
 		// Transformation nach Bessel 1841
@@ -172,7 +172,7 @@ public class CoordTraf {
 
 		long runningTime = new Date().getTime() - start;
 		System.out.println("transformation time: " + runningTime);
-		System.out.println("Koordinaten wurden transformiert!");
+		System.out.println("Koordinaten (Nodes) wurden transformiert!");
 	}
 	
 	public static void setLonLat_POI(List<POI> POIList) {
