@@ -8,7 +8,10 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Karte extends JPanel {
+// Diese Klasse ist ein JPanel mit Hintergrundbild. Diese Hintergrundbild wird von Google Maps erstellt und kann mithilfe
+// der Methode setUrl beliebig während der Laufzeit angepasst werden
+
+public class Karte extends JPanel { //Kindklasse von JPanel
 	private BufferedImage image;
 	private String url;
 
@@ -35,3 +38,4 @@ public class Karte extends JPanel {
 		g.drawImage(image, 0, 0, this);
 	}
 }
+

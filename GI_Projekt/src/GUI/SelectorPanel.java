@@ -21,36 +21,36 @@ import javax.swing.event.ListSelectionListener;
 
 import graph.POI;
 
-// Mit dem Selctor Panel wird jeweils eine SPalte in unserem Fenster erzeugt. Es enthält einen Platzhalter für den Titel, für die Liste und die Karte
-// Hier wird auch die url für die Karte erstellt. Hierfür gibt es im Google Maps developer Abschnitt eine Erläuterung wie mittels API Daten solche Karten 
-// in ein Programm miteinbezogen werden können
+// Mit dem Selctor Panel wird eine Spalte definiert (um nachher im Panel einzufÃ¼gen). Es enthï¿½lt einen Platzhalter fï¿½r den Titel, fï¿½r die Liste und die Karte
+// Hier wird auch die url fï¿½r die Karte erstellt. Hierfï¿½r gibt es im Google Maps developer Abschnitt eine Erlï¿½uterung wie mittels API Daten solche Karten 
+// in ein Programm miteinbezogen werden kï¿½nnen (Google static map API)
 
-public class SelectorPanel extends JPanel {
+public class SelectorPanel extends JPanel { //Kindklasse von JPanel
 
 	private JLabel title;
 	private JList liste;
-	private Karte karte;
+	private Karte karte; //Objekt von Typ Karte (JPanel)
 	private URL standardkarte;
 	private String defurl = "http://maps.googleapis.com/maps/api/staticmap?center=48.1403271,11.5995212&zoom=12&size=600x300&maptype=roadmap";
 	private boolean multiselect;
 
 	
 	public SelectorPanel(String name, Object[] daten, boolean multiselect) {
-		this.multiselect = multiselect;	// Auswahl mehrerer POI für die Punkte, die umgangen werden sollen
+		this.multiselect = multiselect;	// Auswahl mehrerer POI fï¿½r die Punkte, die umgangen werden sollen
 		title = new JLabel(name);
-		title.setFont(new Font("Arial", Font.BOLD, 20)); // Überschrift (Schriftart, Formatierung, Größe)
+		title.setFont(new Font("Arial", Font.BOLD, 20)); // ï¿½berschrift (Schriftart, Formatierung, Grï¿½ï¿½e)
 		liste = new JList(daten);
 		liste.addListSelectionListener(new Listener());
 		// JScrollPane ermoeglicht scrollen in einem Fenster
 		JScrollPane listScroller = new JScrollPane(liste);
-		listScroller.setPreferredSize(new Dimension(600, 300)); // Box im Fenster, welche 600x300 Pixel groß ist (scrollen möglich falss nötig)
+		listScroller.setPreferredSize(new Dimension(600, 300)); // Box im Fenster, welche 600x300 Pixel groï¿½ ist (scrollen mï¿½glich falss nï¿½tig)
 		if (multiselect) {
-			liste.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			liste.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION); // Mehrauswahl mÃ¶glich
 		} else {
-			liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+			liste.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // nur eine Auswahl mÃ¶glich (Startpunkt)
 		}
 		karte = new Karte(defurl);
-		this.setPreferredSize(new Dimension(600, 800));
+		this.setPreferredSize(new Dimension(600, 800)); // Angabe der BoxgrÃ¶ÃŸe 
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(title);
 		this.add(listScroller);
@@ -59,25 +59,27 @@ public class SelectorPanel extends JPanel {
 	}
 	// erstellt neue url sobald eine Auswahl stattfindet 
 	protected void clicked() {
-		karte.setUrl(createUrl());
+		String url = createUrl();
+		// String url wird an Kartenobjekt Ã¼bergeben
+		karte.setUrl(url);
 		
 	}
 
-	// Zusammenbau der url mittels Grundstruktur die für alle Punkte stimmt, den Koordinaten, dem Zoomfaktor und der Fenstergröße
+	// Zusammenbau der url mittels Grundstruktur die fï¿½r alle Punkte stimmt, den Koordinaten, dem Zoomfaktor und der Fenstergrï¿½ï¿½e
 	
 	private String createUrl() {
 		int[] selectedIndices = liste.getSelectedIndices();
 
 		String url = "http://maps.googleapis.com/maps/api/staticmap?center=";
 		if (multiselect) {
-			url = url + "48.1403271,11.5995212&zoom=12";	// Koordinaten des Standardkartenmittelpunktes (selbst gewählt, dass alle Punkte sichtbar sind)
-			// else- Schleife für die single select Liste 
+			url = url + "48.1403271,11.5995212&zoom=12";	// Koordinaten des Standardkartenmittelpunktes (selbst gewï¿½hlt, dass alle Punkte sichtbar sind)
+			// else- Schleife fï¿½r die single select Liste 
 		} else {
 			POI selected = GUI.POIListe[liste.getSelectedIndex()];
-			url = url + selected.getLat() + "," + selected.getLon() + "&zoom=15";	// Zoom Faktor ist hier höher, da nur ein Punkt angezeigt wird 
+			url = url + selected.getLat() + "," + selected.getLon() + "&zoom=15";	// Zoom Faktor ist hier hï¿½her, da nur ein Punkt angezeigt wird 
 		}
 
-		url = url + "&size=600x300&maptype=roadmap"; // Kartengröße mit 600x300 Pixel
+		url = url + "&size=600x300&maptype=roadmap"; // Kartengrï¿½ï¿½e mit 600x300 Pixel
 
 		for (int index : selectedIndices) {
 			POI selected = GUI.POIListe[index];
@@ -86,7 +88,7 @@ public class SelectorPanel extends JPanel {
 		return url;
 	}
 
-	// Ausgewählte Punkte werden mit Linstener gespeichert umd der Routenplanung zu übergeben 
+	// Ausgewï¿½hlte Punkte werden zurÃ¼ckgegeben 
 	
 	public POI[] getSelectedPOIs() {
 		int[] selectedIndices = liste.getSelectedIndices();
@@ -100,6 +102,7 @@ public class SelectorPanel extends JPanel {
 		return selectedPOIs;
 	}
 
+	// Wenn die Auswahl verÃ¤ndert wird ruft er die Methode valueChanged auf, diese ruft die Methode clicked auf
 	private class Listener implements ListSelectionListener {
 		public Listener() {
 
