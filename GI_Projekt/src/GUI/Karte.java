@@ -24,7 +24,7 @@ public class Karte extends JPanel { //Kindklasse von JPanel
 		this.url = urlx;
 		try {
 			image = ImageIO.read(new URL(url));
-		// Erstellung einer Fehlermeldung, fallskeine Internetverbindung vorliegt, da Karte sonst nicht geladen werden kann
+		// Erstellung einer Fehlermeldung, falls keine Internetverbindung vorliegt, da Karte sonst nicht geladen werden kann
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Bitte prüfen Sie Ihre Internetverbindung", "Verbindungsfehler",
 					JOptionPane.ERROR_MESSAGE);

@@ -11,7 +11,7 @@ import graph.POI;
 
 // In dieser Klasse wird die letzte Spalte der Benutzeroberfläche erstellt. Diese enthält nur den "Route planen"- Button
 
-public class ButtonPanel extends JPanel { //Kindklassse von JPanel
+public class ButtonPanel extends JPanel { //Kindklasse von JPanel
 	
 	public ButtonPanel() {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); 
@@ -28,7 +28,7 @@ public class ButtonPanel extends JPanel { //Kindklassse von JPanel
 
 		public void actionPerformed(ActionEvent e) {
 			
-			// *********** Routenplanung hier aufrufen *********** (durch statiss che Methode oder in statischer Variable)
+			// *********** Routenplanung hier aufrufen *********** (durch statische Methode oder in statischer Variable)
 			
 			// ***********************************
 			POI[] POIstart = Wrapper.startListe.getSelectedPOIs(); // hier werden die ausgewählten Punkte geholt.
